@@ -134,9 +134,6 @@
     "symfony/http-kernel": {
         "version": "v4.1.7"
     },
-    "symfony/polyfill-mbstring": {
-        "version": "v1.10.0"
-    },
     "symfony/routing": {
         "version": "4.0",
         "recipe": {
