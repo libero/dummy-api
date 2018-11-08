@@ -12,7 +12,7 @@ jobs:
 
         - stage: Test
           before_script:
-              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml up --detach web
+              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml up -d web
           script:
               - nc -z localhost 8080
 
