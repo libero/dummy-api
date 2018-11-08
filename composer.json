@@ -1,0 +1,42 @@
+{
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Libero\\DummyApi\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.2",
+        "ext-ctype": "*",
+        "libero/api-problem-bundle": "^0.1",
+        "libero/ping-controller": "^0.1",
+        "symfony/config": "^4.1",
+        "symfony/dependency-injection": "^4.1",
+        "symfony/flex": "^1.1",
+        "symfony/framework-bundle": "^4.1",
+        "symfony/http-kernel": "^4.1",
+        "symfony/routing": "^4.1",
+        "symfony/yaml": "^4.1"
+    },
+    "require-dev": {
+        "libero/coding-standard": "^0.2",
+        "phpstan/phpstan": "^0.10",
+        "phpstan/phpstan-symfony": "^0.10",
+        "symfony/debug": "^4.1",
+        "symfony/twig-bundle": "^4.1",
+        "symfony/web-profiler-bundle": "^4.1"
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-php72": "*"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": true
+        }
+    }
+}

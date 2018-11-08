@@ -1,0 +1,40 @@
+sudo: required
+
+language: minimal
+
+services: docker
+
+install:
+    - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
+
+before_script:
+    - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml up --detach web
+
+script:
+    - nc -z localhost 8080
+
+jobs:
+    include:
+
+        - stage: Code Quality
+          env: CODING_STANDARDS
+          before_script: []
+          script:
+              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpcs -p
+
+        - stage: Code Quality
+          env: STATIC_ANALYSIS
+          before_script: []
+          script:
+              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app sh -c "bin/console cache:warmup && vendor/bin/phpstan analyse"
+
+stages:
+    - Test
+    - name: Code Quality
+      if: type = pull_request
+
+if: |
+    branch = master OR \
+    branch =~ /^(?:[0-9]|[1-9][0-9]*)\.(?:[0-9]|[1-9][0-9]*)$/ OR \
+    tag IS present OR \
+    type = pull_request

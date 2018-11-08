@@ -1,0 +1,12 @@
+parameters:
+    level: max
+    paths:
+        - bin/console
+        - config/bundles.php
+        - public/index.php
+        - src
+    symfony:
+        container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml
+
+includes:
+	- vendor/phpstan/phpstan-symfony/extension.neon
