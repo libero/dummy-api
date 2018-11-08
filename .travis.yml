@@ -4,6 +4,10 @@ language: minimal
 
 services: docker
 
+env:
+    - APP_ENV=test
+    - APP_SECRET=secret
+
 install:
     - travis_retry docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
 
