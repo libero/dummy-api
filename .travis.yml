@@ -19,7 +19,7 @@ jobs:
           before_script:
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml up -d web
           script:
-              - nc -z localhost 8080
+              - if [[ $(curl -sS http://localhost:8080/ping 2>&1) == "pong" ]]; then true; else false; fi
 
         - stage: Code Quality
           env: CODING_STANDARDS
