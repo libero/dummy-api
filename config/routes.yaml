@@ -1,3 +1,3 @@
-index:
+ping:
     path: /ping
     controller: libero.dummy_api.controller.ping
