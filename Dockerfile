@@ -11,6 +11,10 @@ COPY src/ src/
 
 RUN composer --no-interaction dump-autoload --classmap-authoritative
 
+FROM composer AS composer-dev
+
+RUN composer --no-interaction install --ignore-platform-reqs --no-suggest --prefer-dist
+
 FROM php:7.2.11-fpm-alpine as prod
 
 WORKDIR /app
@@ -35,4 +39,4 @@ COPY composer.json \
     symfony.lock \
     ./
 
-RUN composer install --no-suggest --prefer-dist
+COPY --from=composer-dev /app/vendor/ vendor/
