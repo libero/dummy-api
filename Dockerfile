@@ -77,6 +77,7 @@ FROM test as dev
 
 USER root
 
+COPY .docker/php-dev.ini ${PHP_INI_DIR}/conf.d/01-app.ini
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY composer.json \
     composer.lock \
