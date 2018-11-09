@@ -35,6 +35,10 @@ WORKDIR /app
 RUN mkdir -p build var && \
     chown --recursive www-data:www-data var
 
+RUN docker-php-ext-install \
+    opcache
+
+COPY .docker/php.ini ${PHP_INI_DIR}/conf.d/00-app.ini
 COPY bin/ bin/
 COPY src/ src/
 COPY public/ public/
@@ -48,6 +52,7 @@ COPY --from=composer /app/vendor/ vendor/
 #
 FROM prod as dev
 
+COPY .docker/php-dev.ini ${PHP_INI_DIR}/conf.d/01-app.ini
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY tests/ tests/
 COPY composer.json \
