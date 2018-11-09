@@ -75,13 +75,12 @@ USER www-data
 FROM test as dev
 
 USER root
+ENV COMPOSER_ALLOW_SUPERUSER=true
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-RUN chown --recursive www-data:www-data vendor
-
-USER www-data
-
 COPY composer.json \
     composer.lock \
     symfony.lock \
     ./
+
+RUN chown --recursive root:root .
