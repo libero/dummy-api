@@ -3,8 +3,8 @@
 
 declare(strict_types=1);
 
+use Libero\DummyApi\Console\Application;
 use Libero\DummyApi\Kernel;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
 
@@ -15,7 +15,7 @@ require __DIR__.'/../vendor/autoload.php';
 $input = new ArgvInput();
 
 $env = $_SERVER['APP_ENV'] ?? 'dev';
-$debug = 'prod' !== $env;
+$debug = (bool) ($_SERVER['APP_DEBUG'] ?? ('prod' !== $env));
 
 if ($debug) {
     umask(0000);
