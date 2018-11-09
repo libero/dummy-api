@@ -16,7 +16,7 @@ jobs:
     include:
 
         - stage: Test
-          name: Smoke Tests
+          name: Smoke tests
           env: APP_ENV=prod
           install:
               - travis_retry docker-compose --file docker-compose.yaml build
@@ -32,12 +32,12 @@ jobs:
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpunit
 
         - stage: Code Quality
-          name: Coding Standards
+          name: Coding standards
           script:
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpcs -p
 
         - stage: Code Quality
-          name: Static Analysis
+          name: Static analysis
           env: APP_ENV=dev
           script:
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app sh -c "bin/console cache:warmup && vendor/bin/phpstan analyse"
