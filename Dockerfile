@@ -38,6 +38,7 @@ RUN mkdir var && \
 RUN docker-php-ext-install \
     opcache
 
+COPY LICENSE LICENSE
 COPY .docker/php.ini ${PHP_INI_DIR}/conf.d/00-app.ini
 COPY bin/ bin/
 COPY src/ src/
