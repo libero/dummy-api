@@ -76,6 +76,7 @@ USER www-data
 FROM test as dev
 
 USER root
+ENV COMPOSER_ALLOW_SUPERUSER=true
 
 COPY .docker/php-dev.ini ${PHP_INI_DIR}/conf.d/01-app.ini
 COPY --from=composer /usr/bin/composer /usr/bin/composer
@@ -83,7 +84,3 @@ COPY composer.json \
     composer.lock \
     symfony.lock \
     ./
-
-RUN chown --recursive www-data:www-data .
-
-USER www-data
