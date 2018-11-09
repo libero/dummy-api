@@ -76,7 +76,6 @@ USER www-data
 FROM test as dev
 
 USER root
-ENV COMPOSER_ALLOW_SUPERUSER=true
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY composer.json \
@@ -84,4 +83,6 @@ COPY composer.json \
     symfony.lock \
     ./
 
-RUN chown --recursive root:root .
+RUN chown --recursive www-data:www-data .
+
+USER www-data
