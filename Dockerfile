@@ -26,14 +26,14 @@ RUN composer --no-interaction install --ignore-platform-reqs --no-suggest --pref
 
 
 #
-# Stage: Production application
+# Stage: Production environment
 #
 FROM php:7.2.11-fpm-alpine as prod
 
 WORKDIR /app
 
-RUN mkdir -p build var && \
-    chown --recursive www-data:www-data var
+RUN mkdir var && \
+    chown www-data:www-data var
 
 RUN docker-php-ext-install \
     opcache
@@ -45,21 +45,43 @@ COPY public/ public/
 COPY config/ config/
 COPY --from=composer /app/vendor/ vendor/
 
+USER www-data
+
 
 
 #
-# Stage: Development application
+# Stage: Test environment
 #
-FROM prod as dev
+FROM prod as test
 
-COPY .docker/php-dev.ini ${PHP_INI_DIR}/conf.d/01-app.ini
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+USER root
+
+RUN touch .phpcs-cache && \
+    chown www-data:www-data .phpcs-cache
 COPY tests/ tests/
-COPY composer.json \
-    composer.lock \
-    phpcs.xml.dist \
+COPY phpcs.xml.dist \
     phpstan.neon.dist \
     phpunit.xml.dist \
-    symfony.lock \
     ./
 COPY --from=composer-dev /app/vendor/ vendor/
+
+USER www-data
+
+
+
+#
+# Stage: Development environment
+#
+FROM test as dev
+
+USER root
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+RUN chown --recursive www-data:www-data vendor
+
+USER www-data
+
+COPY composer.json \
+    composer.lock \
+    symfony.lock \
+    ./
