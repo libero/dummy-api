@@ -6,7 +6,7 @@ namespace Libero\DummyApi;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\Config\Resource\DirectoryResource;
+use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
@@ -14,8 +14,6 @@ use Symfony\Component\Routing\RouteCollectionBuilder;
 final class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
-
-    private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
     public function getProjectDir() : string
     {
@@ -34,7 +32,7 @@ final class Kernel extends BaseKernel
 
     public function registerBundles() : iterable
     {
-        $contents = require "{$this->getProjectDir()}/config/bundles.php";
+        $contents = require "{$this->getConfigDir()}/bundles.php";
         foreach ($contents as $class => $envs) {
             if (isset($envs['all']) || isset($envs[$this->environment])) {
                 yield new $class();
@@ -44,21 +42,22 @@ final class Kernel extends BaseKernel
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader) : void
     {
-        $confDir = "{$this->getProjectDir()}/config";
-
-        $container->addResource(new DirectoryResource($confDir));
+        $container->addResource(new FileResource("{$this->getConfigDir()}/bundles.php"));
         $container->setParameter('container.dumper.inline_class_loader', true);
 
-        $loader->load("{$confDir}/{packages}/*".self::CONFIG_EXTS, 'glob');
-        $loader->load("{$confDir}/{packages}/{$this->environment}/**/*".self::CONFIG_EXTS, 'glob');
-        $loader->load("{$confDir}/{services}".self::CONFIG_EXTS, 'glob');
+        $loader->load("{$this->getConfigDir()}/{packages}/*.yaml", 'glob');
+        $loader->load("{$this->getConfigDir()}/{packages}/{$this->environment}/**/*.yaml", 'glob');
+        $loader->load("{$this->getConfigDir()}/{services}.yaml", 'glob');
     }
 
     protected function configureRoutes(RouteCollectionBuilder $routes) : void
     {
-        $confDir = "{$this->getProjectDir()}/config";
+        $routes->import("{$this->getConfigDir()}/{routes}/{$this->environment}/**/*.yaml", '/', 'glob');
+        $routes->import("{$this->getConfigDir()}/{routes}.yaml", '/', 'glob');
+    }
 
-        $routes->import("{$confDir}/{routes}/{$this->environment}/**/*".self::CONFIG_EXTS, '/', 'glob');
-        $routes->import("{$confDir}/{routes}".self::CONFIG_EXTS, '/', 'glob');
+    private function getConfigDir() : string
+    {
+        return "{$this->getProjectDir()}/config";
     }
 }
