@@ -16,10 +16,11 @@ jobs:
     include:
 
         - stage: Test
-          env: HTTP_TEST
+          env: SMOKE_TESTS
           before_script:
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml up -d web
           script:
+              - docker-compose exec app bin/console --version
               - if [[ $(curl -sS http://localhost:8080/ping 2>&1) == "pong" ]]; then true; else false; fi
 
         - stage: Test
