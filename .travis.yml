@@ -20,7 +20,7 @@ jobs:
           install:
               - travis_retry docker-compose --file docker-compose.yaml build
           before_script:
-              - docker-compose --file docker-compose.yaml up -d web
+              - APP_ENV=prod docker-compose --file docker-compose.yaml up -d web
           script:
               - docker-compose exec app bin/console --version
               - if [[ $(curl -sS http://localhost:8080/ping 2>&1) == "pong" ]]; then true; else false; fi
