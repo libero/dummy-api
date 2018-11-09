@@ -6,7 +6,6 @@ services:
             context: .
             target: prod
         environment:
-            APP_ENV:
             APP_SECRET:
         image: libero/dummy-api:${IMAGE_TAG:-master}
     web:

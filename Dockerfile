@@ -32,6 +32,8 @@ FROM php:7.2.11-fpm-alpine as prod
 
 WORKDIR /app
 
+ENV APP_ENV=prod
+
 RUN mkdir var && \
     chown www-data:www-data var
 
@@ -55,6 +57,8 @@ USER www-data
 #
 FROM prod as test
 
+ENV APP_ENV=test
+
 USER root
 
 RUN touch .phpcs-cache && \
@@ -74,6 +78,8 @@ USER www-data
 # Stage: Development environment
 #
 FROM test as dev
+
+ENV APP_ENV=dev
 
 USER root
 ENV COMPOSER_ALLOW_SUPERUSER=true
