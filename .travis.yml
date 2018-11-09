@@ -16,29 +16,31 @@ jobs:
     include:
 
         - stage: Test
-          env: SMOKE_TESTS
+          name: Smoke Tests
+          env: APP_ENV=prod
           install:
               - travis_retry docker-compose --file docker-compose.yaml build
           before_script:
-              - APP_ENV=prod docker-compose --file docker-compose.yaml up -d web
+              - docker-compose --file docker-compose.yaml up -d web
           script:
               - docker-compose exec app bin/console --version
               - if [[ $(curl -sS http://localhost:8080/ping 2>&1) == "pong" ]]; then true; else false; fi
 
         - stage: Test
-          env: TESTS
+          name: Tests
           script:
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpunit
 
         - stage: Code Quality
-          env: CODING_STANDARDS
+          name: Coding Standards
           script:
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpcs -p
 
         - stage: Code Quality
-          env: STATIC_ANALYSIS
+          name: Static Analysis
+          env: APP_ENV=dev
           script:
-              - APP_ENV=dev docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app sh -c "bin/console cache:warmup && vendor/bin/phpstan analyse"
+              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app sh -c "bin/console cache:warmup && vendor/bin/phpstan analyse"
 
 stages:
     - Test
