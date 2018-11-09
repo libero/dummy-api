@@ -16,10 +16,16 @@ jobs:
     include:
 
         - stage: Test
+          env: HTTP_TEST
           before_script:
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml up -d web
           script:
               - if [[ $(curl -sS http://localhost:8080/ping 2>&1) == "pong" ]]; then true; else false; fi
+
+        - stage: Test
+          env: TESTS
+          script:
+              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpunit
 
         - stage: Code Quality
           env: CODING_STANDARDS

@@ -31,12 +31,12 @@ COPY --from=composer /app/vendor/ vendor/
 FROM prod as dev
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-
+COPY tests/ tests/
 COPY composer.json \
     composer.lock \
     phpcs.xml.dist \
     phpstan.neon.dist \
+    phpunit.xml.dist \
     symfony.lock \
     ./
-
 COPY --from=composer-dev /app/vendor/ vendor/

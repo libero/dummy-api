@@ -15,5 +15,10 @@
     <file>config/bundles.php</file>
     <file>public/index.php</file>
     <file>src/</file>
+    <file>tests/</file>
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
 
 </ruleset>

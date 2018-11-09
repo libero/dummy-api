@@ -5,8 +5,11 @@ parameters:
         - config/bundles.php
         - public/index.php
         - src
+        - tests
     symfony:
         container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml
 
 includes:
-	- vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon

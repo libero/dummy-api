@@ -6,6 +6,11 @@
             "Libero\\DummyApi\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "tests\\Libero\\DummyApi\\": "tests/"
+        }
+    },
     "require": {
         "php": "^7.2",
         "ext-ctype": "*",
@@ -23,12 +28,16 @@
         "symfony/yaml": "^4.1"
     },
     "require-dev": {
+        "fluentdom/fluentdom": "^7.0",
         "libero/coding-standard": "^0.2",
         "phpstan/phpstan": "^0.10",
+        "phpstan/phpstan-phpunit": "^0.10",
         "phpstan/phpstan-symfony": "^0.10",
+        "phpunit/phpunit": "^7.4",
         "symfony/debug": "^4.1",
         "symfony/twig-bundle": "^4.1",
-        "symfony/web-profiler-bundle": "^4.1"
+        "symfony/web-profiler-bundle": "^4.1",
+        "thomasweinert/phpunit-xpath-assertions": "^2.0"
     },
     "replace": {
         "symfony/polyfill-ctype": "*",
