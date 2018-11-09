@@ -1,3 +1,6 @@
+#
+# Stage: Composer install for production
+#
 FROM composer:1.7.3 AS composer
 
 COPY composer.json \
@@ -11,10 +14,20 @@ COPY src/ src/
 
 RUN composer --no-interaction dump-autoload --classmap-authoritative
 
+
+
+#
+# Stage: Composer install for development
+#
 FROM composer AS composer-dev
 
 RUN composer --no-interaction install --ignore-platform-reqs --no-suggest --prefer-dist
 
+
+
+#
+# Stage: Production application
+#
 FROM php:7.2.11-fpm-alpine as prod
 
 WORKDIR /app
@@ -28,6 +41,11 @@ COPY public/ public/
 COPY config/ config/
 COPY --from=composer /app/vendor/ vendor/
 
+
+
+#
+# Stage: Development application
+#
 FROM prod as dev
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
