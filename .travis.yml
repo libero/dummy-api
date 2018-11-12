@@ -44,6 +44,7 @@ jobs:
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run -e APP_ENV=dev app sh -c "bin/console cache:warmup --no-optional-warmers && vendor/bin/phpstan analyse"
 
 stages:
+    - Build
     - Test
     - name: Code Quality
       if: type = pull_request
