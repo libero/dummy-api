@@ -4,4 +4,4 @@ services:
     app:
         build:
             target: test
-        image: libero/dummy-api_test:${IMAGE_TAG:-master}
+        image: liberotest/dummy-api:${IMAGE_TAG:-master}
