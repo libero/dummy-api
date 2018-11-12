@@ -17,9 +17,7 @@ jobs:
           script:
               - travis_retry docker-compose --file docker-compose.yaml build
               - travis_retry docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
-              - docker-compose --file docker-compose.yaml up -d web
-              - docker-compose --file docker-compose.yaml exec app bin/console --version
-              - [[ $(curl -sS http://localhost:8080/ping 2>&1) == "pong" ]]
+              - .travis/test/smoke
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpunit
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpcs -p
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run -e APP_ENV=dev app sh -c "bin/console cache:warmup --no-optional-warmers && vendor/bin/phpstan analyse"
