@@ -6,7 +6,6 @@ services: docker
 
 env:
     global:
-        - APP_ENV=test
         - APP_SECRET=secret
 
 install:
@@ -17,7 +16,6 @@ jobs:
 
         - stage: Test
           name: Smoke tests
-          env: APP_ENV=prod
           install:
               - travis_retry docker-compose --file docker-compose.yaml build
           before_script:
@@ -38,9 +36,8 @@ jobs:
 
         - stage: Code Quality
           name: Static analysis
-          env: APP_ENV=dev
           script:
-              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app sh -c "bin/console cache:warmup && vendor/bin/phpstan analyse"
+              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run -e APP_ENV=dev app sh -c "bin/console cache:warmup && vendor/bin/phpstan analyse"
 
 stages:
     - Test
