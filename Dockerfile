@@ -34,7 +34,7 @@ WORKDIR /app
 
 ENV APP_ENV=prod
 
-RUN mkdir var && \
+RUN mkdir -p data/articles var && \
     chown www-data:www-data var
 
 RUN docker-php-ext-install \

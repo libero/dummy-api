@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f597bb50e709be095a2cdd07772bce5a",
+    "content-hash": "9371a8c61a426cce7f6e6e4c42f3414d",
     "packages": [
         {
             "name": "fluentdom/fluentdom",
@@ -108,6 +108,67 @@
             ],
             "description": "Implements the Libero API error standard",
             "time": "2018-10-24T14:35:33+00:00"
+        },
+        {
+            "name": "libero/content-api-bundle",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/libero/content-api-bundle.git",
+                "reference": "e97ffc1f903a63e7b69b6547720933ec0d17f23d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/libero/content-api-bundle/zipball/e97ffc1f903a63e7b69b6547720933ec0d17f23d",
+                "reference": "e97ffc1f903a63e7b69b6547720933ec0d17f23d",
+                "shasum": ""
+            },
+            "require": {
+                "fluentdom/fluentdom": "^7.0",
+                "libero/ping-controller": "^0.1",
+                "php": "^7.2",
+                "symfony/config": "^3.4 || ^4.0",
+                "symfony/dependency-injection": "^3.4 || ^4.0",
+                "symfony/framework-bundle": "^3.4 || ^4.0",
+                "symfony/http-foundation": "^3.4.13 || ^4.0",
+                "symfony/http-kernel": "^3.4 || ^4.0",
+                "symfony/routing": "^3.4 || ^4.0"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^2.8",
+                "libero/api-problem-bundle": "^0.1",
+                "libero/coding-standard": "^0.2",
+                "php-vfs/php-vfs": "^1.4",
+                "phpstan/phpstan": "^0.10",
+                "phpstan/phpstan-phpunit": "^0.10",
+                "phpunit/phpunit": "^7.2",
+                "symfony/console": "^3.4 || ^4.0",
+                "symfony/filesystem": "^3.4 || ^4.0",
+                "symfony/translation": "^3.4 || ^4.0"
+            },
+            "suggest": {
+                "doctrine/dbal": "To use the DoctrineItems adapter",
+                "libero/api-problem-bundle": "To have exceptions converted to API problems",
+                "symfony/filesystem": "To use the FilesystemItems adapter",
+                "symfony/translation": "To have exceptions converted to API problems"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Libero\\ContentApiBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Implements the Libero content API",
+            "time": "2018-11-12T15:50:18+00:00"
         },
         {
             "name": "libero/ping-controller",
@@ -1212,6 +1273,75 @@
                 "uri",
                 "url"
             ],
+            "time": "2018-10-28T18:38:52+00:00"
+        },
+        {
+            "name": "symfony/translation",
+            "version": "v4.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/translation.git",
+                "reference": "aa04dc1c75b7d3da7bd7003104cd0cfc5dff635c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/aa04dc1c75b7d3da7bd7003104cd0cfc5dff635c",
+                "reference": "aa04dc1c75b7d3da7bd7003104cd0cfc5dff635c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "conflict": {
+                "symfony/config": "<3.4",
+                "symfony/dependency-injection": "<3.4",
+                "symfony/yaml": "<3.4"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/config": "~3.4|~4.0",
+                "symfony/console": "~3.4|~4.0",
+                "symfony/dependency-injection": "~3.4|~4.0",
+                "symfony/finder": "~2.8|~3.0|~4.0",
+                "symfony/intl": "~3.4|~4.0",
+                "symfony/yaml": "~3.4|~4.0"
+            },
+            "suggest": {
+                "psr/log-implementation": "To use logging capability in translator",
+                "symfony/config": "",
+                "symfony/yaml": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Translation\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Translation Component",
+            "homepage": "https://symfony.com",
             "time": "2018-10-28T18:38:52+00:00"
         },
         {
