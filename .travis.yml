@@ -9,16 +9,19 @@ env:
         - APP_SECRET=secret
         - IMAGE_TAG=$TRAVIS_COMMIT
 
-install:
-    - travis_retry docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
 
 jobs:
     include:
+        - stage: Build
+          name: Docker images
+          script:
+              - travis_retry docker-compose --file docker-compose.yaml build
+              - travis_retry docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
 
         - stage: Test
           name: Smoke tests
-          install:
-              - travis_retry docker-compose --file docker-compose.yaml build
+          #install:
+          #    - travis_retry docker-compose --file docker-compose.yaml pull
           before_script:
               - docker-compose --file docker-compose.yaml up -d web
           script:
