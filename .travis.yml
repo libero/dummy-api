@@ -12,42 +12,16 @@ env:
 
 jobs:
     include:
-        - stage: Build
-          name: Docker images
-          script:
-              - travis_retry docker-compose --file docker-compose.yaml build
-              - travis_retry docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
-
-        - stage: Test
-          name: Smoke tests
-          #install:
-          #    - travis_retry docker-compose --file docker-compose.yaml pull
-          before_script:
-              - docker-compose --file docker-compose.yaml up -d web
-          script:
-              - docker-compose exec app bin/console --version
-              - if [[ $(curl -sS http://localhost:8080/ping 2>&1) == "pong" ]]; then true; else false; fi
-
         - stage: Test
           name: Tests
           script:
+              - travis_retry docker-compose --file docker-compose.yaml build
+              - travis_retry docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
+              - docker-compose --file docker-compose.yaml up -d web && - docker-compose exec app bin/console --version
+              - if [[ $(curl -sS http://localhost:8080/ping 2>&1) == "pong" ]]; then true; else false; fi
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpunit
-
-        - stage: Code Quality
-          name: Coding standards
-          script:
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpcs -p
-
-        - stage: Code Quality
-          name: Static analysis
-          script:
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run -e APP_ENV=dev app sh -c "bin/console cache:warmup --no-optional-warmers && vendor/bin/phpstan analyse"
-
-stages:
-    - Build
-    - Test
-    - name: Code Quality
-      if: type = pull_request
 
 if: |
     branch = master OR \
