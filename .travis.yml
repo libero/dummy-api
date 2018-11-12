@@ -17,7 +17,8 @@ jobs:
           script:
               - travis_retry docker-compose --file docker-compose.yaml build
               - travis_retry docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
-              - docker-compose --file docker-compose.yaml up -d web && - docker-compose exec app bin/console --version
+              - docker-compose --file docker-compose.yaml up -d web
+              - docker-compose exec app bin/console --version
               - if [[ $(curl -sS http://localhost:8080/ping 2>&1) == "pong" ]]; then true; else false; fi
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpunit
               - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpcs -p
