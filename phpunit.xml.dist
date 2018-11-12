@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/7.4/phpunit.xsd" colors="true"
+    bootstrap="vendor/autoload.php">
+
+    <php>
+        <env name="APP_ENV" value="test"/>
+        <env name="APP_SECRET" value="foobarbazqux"/>
+        <env name="KERNEL_CLASS" value="Libero\DummyApi\Kernel"/>
+        <env name="SHELL_VERBOSITY" value="-1"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="Dummy API">
+            <directory suffix=".php">tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>src</directory>
+        </whitelist>
+    </filter>
+
+</phpunit>

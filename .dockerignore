@@ -1,0 +1,11 @@
+.git/
+.github/
+.gitattributes
+.gitignore
+.phpcs-cache
+.travis.yml
+CODE_OF_CONDUCT.md
+docker-compose*.yml
+README.md
+var/
+vendor/

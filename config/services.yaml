@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Libero\DummyApi\:
+        resource: '../src/*'
+        exclude: '../src/{Kernel.php}'
+
+    libero.dummy_api.controller.ping:
+        class: Libero\PingController\PingController
+        tags:
+            - name: controller.service_arguments
