@@ -37,7 +37,7 @@ jobs:
         - stage: Code Quality
           name: Static analysis
           script:
-              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run -e APP_ENV=dev app sh -c "bin/console cache:warmup && vendor/bin/phpstan analyse"
+              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run -e APP_ENV=dev app sh -c "bin/console cache:warmup --no-optional-warmers && vendor/bin/phpstan analyse"
 
 stages:
     - Test
