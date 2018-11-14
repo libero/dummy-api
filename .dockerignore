@@ -5,7 +5,6 @@
 .phpcs-cache
 .travis.yml
 CODE_OF_CONDUCT.md
-data/
 docker-compose*.yml
 README.md
 var/
