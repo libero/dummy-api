@@ -1,0 +1,16 @@
+monolog:
+    handlers:
+        console:
+            channels:
+                - '!event'
+            type: console
+        main:
+            action_level: error
+            excluded_404s:
+                - ^/
+            handler: nested
+            type: fingers_crossed
+        nested:
+            level: debug
+            path: 'php://stderr'
+            type: stream
