@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9371a8c61a426cce7f6e6e4c42f3414d",
+    "content-hash": "a80bfdd7baca86dff5fe5cf8211af0bc",
     "packages": [
         {
             "name": "fluentdom/fluentdom",

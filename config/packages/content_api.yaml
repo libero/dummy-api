@@ -1,4 +1,0 @@
-content_api:
-    services:
-        articles:
-            items: libero.dummy_api.content_api.articles

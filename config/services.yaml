@@ -1,3 +1,6 @@
+parameters:
+    kernel.data_dir: '%kernel.project_dir%/data'
+
 services:
     _defaults:
         autowire: true
@@ -12,8 +15,3 @@ services:
         class: Libero\PingController\PingController
         tags:
             - name: controller.service_arguments
-
-    libero.dummy_api.content_api.articles:
-        class: Libero\ContentApiBundle\Adapter\FilesystemItems
-        arguments:
-            - '%kernel.project_dir%/data/articles'
