@@ -9,19 +9,15 @@ env:
         - APP_SECRET=secret
         - IMAGE_TAG=$TRAVIS_COMMIT
 
+install:
+    - travis_retry docker-compose --file docker-compose.yaml build
+    - travis_retry docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
 
-jobs:
-    include:
-        - stage: Test
-          name: Tests
-          install:
-              - travis_retry docker-compose --file docker-compose.yaml build
-              - travis_retry docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
-          script:
-              - .travis/test/smoke
-              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpunit
-              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpcs -p
-              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run -e APP_ENV=dev app sh -c "bin/console cache:warmup --no-optional-warmers && vendor/bin/phpstan analyse"
+script:
+    - .travis/test/smoke
+    - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpunit
+    - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpcs -p
+    - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run -e APP_ENV=dev app sh -c "bin/console cache:warmup --no-optional-warmers && vendor/bin/phpstan analyse"
 
 if: |
     branch = master OR \
