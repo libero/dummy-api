@@ -1,3 +1,7 @@
 ping:
     path: /ping
     controller: libero.dummy_api.controller.ping
+
+content_api:
+    resource: .
+    type: content_api

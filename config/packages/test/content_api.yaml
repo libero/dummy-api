@@ -1,0 +1,15 @@
+content_api:
+    services:
+        articles:
+            items: libero.dummy_api_test.content_api.articles
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    libero.dummy_api_test.content_api.articles:
+        class: Libero\ContentApiBundle\Adapter\FilesystemItems
+        arguments:
+            - '%env(ARTICLES_PATH)%'

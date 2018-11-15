@@ -1,3 +1,6 @@
+parameters:
+    kernel.data_dir: '%kernel.project_dir%/data'
+
 services:
     _defaults:
         autowire: true
