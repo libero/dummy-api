@@ -32,7 +32,7 @@
     },
     "require-dev": {
         "fluentdom/fluentdom": "^7.0",
-        "libero/coding-standard": "^0.2",
+        "libero/coding-standard": "^0.3",
         "phpstan/phpstan": "^0.10",
         "phpstan/phpstan-phpunit": "^0.10",
         "phpstan/phpstan-symfony": "^0.10",
