@@ -1,0 +1,14 @@
+services:
+    # Is enabled in other environments through Twig.
+    # Exceptions are already handled by the ApiProblemBundle, but need to be logged.
+    Symfony\Component\HttpKernel\EventListener\ExceptionListener:
+        arguments:
+            - ''
+            - '@logger'
+            - '%kernel.debug%'
+        tags:
+            - name: kernel.event_listener
+              event: kernel.exception
+              method: logKernelException
+            - name: monolog.logger
+              channel: request
