@@ -2,6 +2,7 @@
 set -e
 
 function finish {
+    docker-compose --file docker-compose.yaml logs
     docker-compose --file docker-compose.yaml down --volumes
 }
 
