@@ -17,15 +17,6 @@ RUN composer --no-interaction dump-autoload --classmap-authoritative
 
 
 #
-# Stage: Composer install for development
-#
-FROM composer AS composer-dev
-
-RUN composer --no-interaction install --ignore-platform-reqs --no-suggest --prefer-dist
-
-
-
-#
 # Stage: Production environment
 #
 FROM php:7.2.11-fpm-alpine as prod
@@ -49,6 +40,15 @@ COPY config/ config/
 COPY --from=composer /app/vendor/ vendor/
 
 USER www-data
+
+
+
+#
+# Stage: Composer install for development
+#
+FROM composer AS composer-dev
+
+RUN composer --no-interaction install --ignore-platform-reqs --no-suggest --prefer-dist
 
 
 

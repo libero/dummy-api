@@ -7,42 +7,17 @@ services: docker
 env:
     global:
         - APP_SECRET=secret
+        - IMAGE_TAG=$TRAVIS_COMMIT
 
 install:
+    - travis_retry docker-compose --file docker-compose.yaml build
     - travis_retry docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
 
-jobs:
-    include:
-
-        - stage: Test
-          name: Smoke tests
-          install:
-              - travis_retry docker-compose --file docker-compose.yaml build
-          before_script:
-              - docker-compose --file docker-compose.yaml up -d web
-          script:
-              - docker-compose exec app bin/console --version
-              - if [[ $(curl -sS http://localhost:8080/ping 2>&1) == "pong" ]]; then true; else false; fi
-
-        - stage: Test
-          name: Tests
-          script:
-              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpunit
-
-        - stage: Code Quality
-          name: Coding standards
-          script:
-              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpcs -p
-
-        - stage: Code Quality
-          name: Static analysis
-          script:
-              - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run -e APP_ENV=dev app sh -c "bin/console cache:warmup --no-optional-warmers && vendor/bin/phpstan analyse"
-
-stages:
-    - Test
-    - name: Code Quality
-      if: type = pull_request
+script:
+    - .travis/test/smoke
+    - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpunit
+    - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run app vendor/bin/phpcs -p
+    - docker-compose --file docker-compose.yaml --file docker-compose.test.yaml run -e APP_ENV=dev app sh -c "bin/console cache:warmup --no-optional-warmers && vendor/bin/phpstan analyse"
 
 if: |
     branch = master OR \
