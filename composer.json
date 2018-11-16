@@ -1,4 +1,6 @@
 {
+    "name": "libero/dummy-api",
+    "description": "Dummy implementation of a Libero API for development and testing purposes.",
     "type": "project",
     "license": "MIT",
     "autoload": {
