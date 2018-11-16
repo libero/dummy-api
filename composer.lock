@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8fbc41e6e01df9d0812cd44d8d299593",
+    "content-hash": "99da192410fcbf8d013ffed992a0e708",
     "packages": [
         {
             "name": "fluentdom/fluentdom",
@@ -1832,16 +1832,16 @@
         },
         {
             "name": "libero/coding-standard",
-            "version": "v0.2.1",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/libero/php-coding-standard.git",
-                "reference": "6bfa0b200f3ce5795e839c544fd39df32558090f"
+                "reference": "0bba2855baed3a9d9e3a8bcb009ef477a60ed122"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libero/php-coding-standard/zipball/6bfa0b200f3ce5795e839c544fd39df32558090f",
-                "reference": "6bfa0b200f3ce5795e839c544fd39df32558090f",
+                "url": "https://api.github.com/repos/libero/php-coding-standard/zipball/0bba2855baed3a9d9e3a8bcb009ef477a60ed122",
+                "reference": "0bba2855baed3a9d9e3a8bcb009ef477a60ed122",
                 "shasum": ""
             },
             "require": {
@@ -1875,7 +1875,7 @@
                 "MIT"
             ],
             "description": "Libero PHP coding standard",
-            "time": "2018-10-12T18:32:29+00:00"
+            "time": "2018-11-15T08:04:49+00:00"
         },
         {
             "name": "myclabs/deep-copy",
