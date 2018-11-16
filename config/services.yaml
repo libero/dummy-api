@@ -11,11 +11,6 @@ services:
         resource: '../src/*'
         exclude: '../src/{Kernel.php}'
 
-    Libero\DummyApi\Controller\:
-        resource: '../src/Controller'
-        tags:
-            - name: controller.service_arguments
-
     libero.dummy_api.controller.ping:
         class: Libero\PingController\PingController
         tags:

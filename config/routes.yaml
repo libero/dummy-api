@@ -5,7 +5,3 @@ ping:
 content_api:
     resource: .
     type: content_api
-
-error:
-    path: /error
-    controller: Libero\DummyApi\Controller\ErrorController
