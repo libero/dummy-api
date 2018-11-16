@@ -7,6 +7,7 @@ namespace Libero\DummyApi;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
@@ -48,7 +49,17 @@ final class Kernel extends BaseKernel
         $loader->load("{$this->getConfigDir()}/{packages}/*.yaml", 'glob');
         $loader->load("{$this->getConfigDir()}/{packages}/{$this->environment}/**/*.yaml", 'glob');
         $loader->load("{$this->getConfigDir()}/{services}.yaml", 'glob');
-        $loader->load("{$this->getConfigDir()}/{services}_{$this->environment}.yaml", 'glob');
+
+        $container->addCompilerPass(
+            new class() implements CompilerPassInterface
+            {
+                public function process(ContainerBuilder $container) : void
+                {
+                    // Exceptions are already handled by the ApiProblemBundle.
+                    $container->removeDefinition('twig.exception_listener');
+                }
+            }
+        );
     }
 
     protected function configureRoutes(RouteCollectionBuilder $routes) : void

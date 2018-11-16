@@ -20,3 +20,18 @@ services:
         class: Libero\PingController\PingController
         tags:
             - name: controller.service_arguments
+
+    # Exceptions are already handled by the ApiProblemBundle, but need to be logged.
+    libero.dummy_api.exception_logger:
+        autoconfigure: false
+        class: Symfony\Component\HttpKernel\EventListener\ExceptionListener
+        arguments:
+            - ''
+            - '@logger'
+            - '%kernel.debug%'
+        tags:
+            - name: kernel.event_listener
+              event: kernel.exception
+              method: logKernelException
+            - name: monolog.logger
+              channel: request
