@@ -22,6 +22,12 @@ script:
 after_success:
     - .travis/push-image.sh
 
+deploy:
+    provider: script
+    script: .travis/downstream-environments.sh $TRAVIS_COMMIT
+    on:
+        branch: master
+
 if: |
     branch = master OR \
     branch =~ /^(?:[0-9]|[1-9][0-9]*)\.(?:[0-9]|[1-9][0-9]*)$/ OR \
