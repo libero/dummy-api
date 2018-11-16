@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+body='{
+    "request": {
+        "branch": "master",
+        "message": "Update dummy-api to '"$1"'"
+    }
+}'
+
+curl \
+    --silent \
+    -X POST \
+   -H "Content-Type: application/json" \
+   -H "Accept: application/json" \
+   -H "Travis-API-Version: 3" \
+   -H "Authorization: token $TRAVIS_TOKEN" \
+   -d "$body" \
+   https://api.travis-ci.com/repo/libero%2Fenvironments/requests
