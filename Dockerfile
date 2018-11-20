@@ -19,7 +19,7 @@ RUN composer --no-interaction dump-autoload --classmap-authoritative
 #
 # Stage: Production environment
 #
-FROM php:7.2.11-fpm-alpine as prod
+FROM php:7.2.11-fpm-alpine AS prod
 
 WORKDIR /app
 
@@ -31,7 +31,7 @@ RUN mkdir data var && \
 RUN docker-php-ext-install \
     opcache
 
-COPY LICENSE LICENSE
+COPY LICENSE .
 COPY .docker/php.ini ${PHP_INI_DIR}/conf.d/00-app.ini
 COPY bin/ bin/
 COPY src/ src/
@@ -56,18 +56,22 @@ RUN composer --no-interaction install --ignore-platform-reqs --no-suggest --pref
 #
 # Stage: Test environment
 #
-FROM prod as test
+FROM prod AS test
 
 ENV APP_ENV=test
 
 USER root
 
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN touch .phpcs-cache && \
     chown www-data:www-data .phpcs-cache
 COPY tests/ tests/
-COPY phpcs.xml.dist \
+COPY composer.json \
+    composer.lock \
+    phpcs.xml.dist \
     phpstan.neon.dist \
     phpunit.xml.dist \
+    symfony.lock \
     ./
 COPY --from=composer-dev /app/vendor/ vendor/
 
@@ -78,7 +82,7 @@ USER www-data
 #
 # Stage: Development environment
 #
-FROM test as dev
+FROM test AS dev
 
 ENV APP_ENV=dev
 
@@ -86,8 +90,3 @@ USER root
 ENV COMPOSER_ALLOW_SUPERUSER=true
 
 COPY .docker/php-dev.ini ${PHP_INI_DIR}/conf.d/01-app.ini
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-COPY composer.json \
-    composer.lock \
-    symfony.lock \
-    ./
