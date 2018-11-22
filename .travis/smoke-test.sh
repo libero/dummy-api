@@ -10,5 +10,8 @@ trap finish EXIT
 
 docker-compose --file docker-compose.yaml up -d web
 docker-compose --file docker-compose.yaml exec app bin/console --version
+
+.travis/docker-wait-healthy "${COMPOSE_PROJECT_NAME:-dummyapi}_app_1"
+
 ping=$(curl -sS http://localhost:8080/ping 2>&1)
 [[ "$ping" == "pong" ]]
