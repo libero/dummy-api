@@ -10,7 +10,6 @@ env:
         - IMAGE_TAG=$TRAVIS_COMMIT
 
 install:
-    - cat .scripts/README.md
     - travis_retry docker-compose --file docker-compose.yaml build
     - travis_retry docker-compose --file docker-compose.yaml --file docker-compose.test.yaml build
 
