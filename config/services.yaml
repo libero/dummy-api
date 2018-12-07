@@ -1,4 +1,6 @@
 parameters:
+    env(DEFAULT_LOCALE): 'en'
+    env(POSSIBLE_LOCALES): '%env(DEFAULT_LOCALE)%'
     kernel.data_dir: '%kernel.project_dir%/data'
 
 services:
