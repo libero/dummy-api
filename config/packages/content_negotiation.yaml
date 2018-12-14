@@ -1,9 +1,4 @@
 content_negotiation:
-    formats:
-        - path: /ping$
-          priorities:
-        - path: ^/
-          priorities: xml
     locales:
         - path: ^/
           priorities: '%env(POSSIBLE_LOCALES)%'

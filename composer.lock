@@ -111,16 +111,16 @@
         },
         {
             "name": "libero/content-api-bundle",
-            "version": "v0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/libero/content-api-bundle.git",
-                "reference": "e97ffc1f903a63e7b69b6547720933ec0d17f23d"
+                "reference": "d942c10f8be7a415605ea6a1b59a43cae97c0630"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/libero/content-api-bundle/zipball/e97ffc1f903a63e7b69b6547720933ec0d17f23d",
-                "reference": "e97ffc1f903a63e7b69b6547720933ec0d17f23d",
+                "url": "https://api.github.com/repos/libero/content-api-bundle/zipball/d942c10f8be7a415605ea6a1b59a43cae97c0630",
+                "reference": "d942c10f8be7a415605ea6a1b59a43cae97c0630",
                 "shasum": ""
             },
             "require": {
@@ -137,7 +137,8 @@
             "require-dev": {
                 "doctrine/dbal": "^2.8",
                 "libero/api-problem-bundle": "^0.1",
-                "libero/coding-standard": "^0.2",
+                "libero/coding-standard": "^0.3",
+                "libero/content-negotiation-bundle": "^0.1",
                 "php-vfs/php-vfs": "^1.4",
                 "phpstan/phpstan": "^0.10",
                 "phpstan/phpstan-phpunit": "^0.10",
@@ -149,6 +150,7 @@
             "suggest": {
                 "doctrine/dbal": "To use the DoctrineItems adapter",
                 "libero/api-problem-bundle": "To have exceptions converted to API problems",
+                "libero/content-negotiation-bundle": "To enable content negotiation",
                 "symfony/filesystem": "To use the FilesystemItems adapter",
                 "symfony/translation": "To have exceptions converted to API problems"
             },
@@ -168,7 +170,7 @@
                 "MIT"
             ],
             "description": "Implements the Libero content API",
-            "time": "2018-11-12T15:50:18+00:00"
+            "time": "2018-12-14T11:43:22+00:00"
         },
         {
             "name": "libero/content-negotiation-bundle",
