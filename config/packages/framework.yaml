@@ -1,4 +1,7 @@
 framework:
     php_errors:
         log: true
+    request:
+        formats:
+            xml: 'application/xml'
     secret: '%env(APP_SECRET)%'

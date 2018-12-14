@@ -87,6 +87,29 @@ final class ContentServicesTest extends KernelTestCase
         $this->assertXmlStringEqualsXmlFile(self::ARTICLES_PATH.'/item1/1.xml', $content);
     }
 
+    /**
+     * @test
+     * @dataProvider pathTypeProvider
+     */
+    public function it_requires_xml(string $path) : void
+    {
+        self::bootKernel();
+
+        $request = Request::create($path);
+        $request->headers->set('Accept', 'application/json');
+
+        $response = $this->handle($request, $content);
+
+        $this->assertSame(Response::HTTP_NOT_ACCEPTABLE, $response->getStatusCode());
+        $this->assertSame('application/problem+xml; charset=utf-8', $response->headers->get('Content-Type'));
+    }
+
+    public function pathTypeProvider() : iterable
+    {
+        yield 'list' => ['/articles/items'];
+        yield 'item' => ['/articles/items/item1/versions/1'];
+    }
+
     private function handle(Request $request, &$content) : Response
     {
         ob_start();

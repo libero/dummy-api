@@ -1,0 +1,5 @@
+content_negotiation:
+    locales:
+        - path: ^/
+          priorities: '%env(POSSIBLE_LOCALES)%'
+          optional: true
