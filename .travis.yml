@@ -9,6 +9,7 @@ env:
         - APP_SECRET=secret
         # update to dummy-api if docker-compose available on Travis CI accepts it:
         - COMPOSE_PROJECT_NAME=dummyapi
+        - IMAGE_REVISION=$TRAVIS_COMMIT
         - IMAGE_TAG=$TRAVIS_COMMIT
 
 install:

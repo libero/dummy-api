@@ -5,6 +5,8 @@ services:
         build:
             context: .
             target: prod
+            args:
+                revision: ${IMAGE_REVISION:-master}
         environment:
             APP_SECRET:
         image: libero/dummy-api:${IMAGE_TAG:-master}
